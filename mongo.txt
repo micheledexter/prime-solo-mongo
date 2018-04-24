@@ -1,0 +1,17 @@
+// 0. Create a collection named orders
+db.createDatabase('orders');
+
+// 1. Insert at least 3 documents that represent an order. IMPORTANT: See section below for fields. Order dates should be: 2017-02-03, 2017-04-04, 2017-01-02
+db.orders.insert({orderDate: new Date('2017-02-03'), orderTotal: 200.0, lineItems: [{unitPrice: 50.0, quantity: 4, productName: "Desk Chair"}]})
+db.orders.insert({orderDate: new Date('2017-04-04'), orderTotal: 100.0, lineItems: [{unitPrice: 20.0, quantity: 4, productName: "Desk Chair"}]})
+db.orders.insert({orderDate: new Date('2017-01-02'), orderTotal: 300.0, lineItems: [{unitPrice: 75.0, quantity: 4, productName: "Desk Chair"}]})
+
+// 2. Find all orders and make them look pretty.
+db.orders.find().pretty()
+
+// 3. Find all orders with an orderDate that is after 1/31/2017.
+db.orders.find({orderDate: {$gt: new Date('2017-01-31')}})
+
+// 4. Change the orderTotal from 2/3/2017 to 63 dollars (you do NOT have to ensure the lineItems' unitPrice * quantity add up to the orderTotal)
+db.orders.find({orderDate: new Date('2017-02-03')})
+db.orders.update({orderDate: new Date('2017-02-03')}, {$set: {orderTotal: 63.00}})
